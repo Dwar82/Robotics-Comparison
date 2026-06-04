@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Robotics Program Comparison 2026–27 — Fresno, Grades 6–8</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #ffffff;
+    --bg2: #f5f5f3;
+    --bg3: #ededea;
+    --border: rgba(0,0,0,0.15);
+    --border2: rgba(0,0,0,0.25);
+    --text: #1a1a18;
+    --text2: #5f5e5a;
+    --text3: #888780;
+    --ok: #0f6e56;
+    --warn: #854f0b;
+    --bad: #a32d2d;
+    --radius: 8px;
+    --radius-lg: 12px;
+    --font: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1e1e1c;
+      --bg2: #272725;
+      --bg3: #303030;
+      --border: rgba(255,255,255,0.15);
+      --border2: rgba(255,255,255,0.25);
+      --text: #f0efe8;
+      --text2: #b4b2a9;
+      --text3: #888780;
+      --ok: #5dcaa5;
+      --warn: #fac775;
+      --bad: #f09595;
+    }
+  }
+
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 24px 64px;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  h1 {
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+    color: var(--text2);
+    margin-bottom: 20px;
+  }
+
+  /* Program badges */
+  .prog-hdr { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 12px; font-weight: 500; padding: 4px 10px;
+    border-radius: var(--radius); white-space: nowrap;
+  }
+  .b-fll { background: #FAEEDA; color: #854F0B; }
+  .b-ftc { background: #E6F1FB; color: #185FA5; }
+  .b-iq  { background: #E1F5EE; color: #0F6E56; }
+  .b-v5  { background: #EEEDFE; color: #534AB7; }
+  .b-wro { background: #FAECE7; color: #993C1D; }
+
+  @media (prefers-color-scheme: dark) {
+    .b-fll { background: #633806; color: #FAC775; }
+    .b-ftc { background: #042C53; color: #B5D4F4; }
+    .b-iq  { background: #04342C; color: #9FE1CB; }
+    .b-v5  { background: #26215C; color: #CECBF6; }
+    .b-wro { background: #4A1B0C; color: #F5C4B3; }
+  }
+
+  /* Legend */
+  .legend {
+    font-size: 12px; color: var(--text3);
+    display: flex; flex-wrap: wrap; gap: 12px;
+    margin-bottom: 16px;
+  }
+  .ok  { color: var(--ok); }
+  .warn { color: var(--warn); }
+  .bad  { color: var(--bad); }
+
+  /* Controls */
+  .ctrl { text-align: right; margin-bottom: 10px; }
+  .ctrl button {
+    font-size: 13px; padding: 6px 14px; cursor: pointer;
+    border: 0.5px solid var(--border2); border-radius: var(--radius);
+    background: var(--bg); color: var(--text);
+    font-family: var(--font);
+  }
+  .ctrl button:hover { background: var(--bg2); }
+
+  /* Accordion */
+  .cat {
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    margin-bottom: 8px;
+    overflow: hidden;
+  }
+
+  .cat-hdr {
+    display: flex; align-items: center; gap: 10px;
+    padding: 13px 16px; cursor: pointer;
+    background: var(--bg2); user-select: none;
+  }
+  .cat-hdr:hover { background: var(--bg3); }
+  .cat-title { font-weight: 500; font-size: 14px; flex: 1; }
+  .cat-num { font-size: 11px; color: var(--text3); }
+  .chevron {
+    color: var(--text3); font-size: 17px;
+    transition: transform 0.2s; display: inline-block;
+  }
+  .cat.open .chevron { transform: rotate(180deg); }
+
+  .cat-body { overflow-x: auto; display: none; }
+  .cat.open .cat-body { display: block; }
+  .tbl-pad { padding: 0 16px 16px; }
+
+  /* Comparison table */
+  .pt {
+    width: 100%; border-collapse: collapse;
+    font-size: 13px; min-width: 680px;
+  }
+  .pt thead th {
+    padding: 8px 10px; text-align: left; font-weight: 500;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .pt tbody td {
+    padding: 8px 10px; vertical-align: top;
+    border-bottom: 0.5px solid var(--border);
+    line-height: 1.55;
+  }
+  .pt tbody tr:last-child td { border-bottom: none; }
+  .lbl {
+    color: var(--text2); font-size: 12px; font-weight: 500;
+    white-space: nowrap; min-width: 115px; max-width: 135px;
+  }
+  .est { font-size: 11px; color: var(--text3); }
+  .nt  { font-size: 11px; color: var(--text3); font-style: italic; display: block; }
+
+  /* Recommendation */
+  .rec {
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    margin-top: 16px; overflow: hidden;
+  }
+  .rec-h {
+    background: var(--bg2); padding: 12px 16px;
+    font-weight: 500; font-size: 15px;
+    border-bottom: 0.5px solid var(--border);
+    display: flex; align-items: center; gap: 9px;
+  }
+  .rec-body { padding: 16px; }
+  .rrow {
+    display: flex; gap: 12px; margin-bottom: 14px;
+    padding-bottom: 14px; border-bottom: 0.5px solid var(--border);
+  }
+  .rrow:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .ric { font-size: 22px; color: var(--text2); flex-shrink: 0; margin-top: 1px; }
+  .rtext h4 { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+  .rtext p  { font-size: 13px; color: var(--text2); line-height: 1.6; }
+
+  .tradeoff {
+    background: #FAEEDA; border: 0.5px solid #EF9F27;
+    border-radius: var(--radius); padding: 11px 14px;
+    margin-top: 14px; font-size: 13px; color: #633806; line-height: 1.6;
+  }
+  @media (prefers-color-scheme: dark) {
+    .tradeoff { background: #412402; border-color: #BA7517; color: #FAC775; }
+  }
+
+  .watchouts {
+    background: var(--bg2); border-radius: var(--radius);
+    padding: 11px 14px; margin-top: 10px;
+    font-size: 13px; color: var(--text2); line-height: 1.6;
+  }
+  .watchouts strong { color: var(--text); }
+  .watchouts ul { margin-top: 6px; padding-left: 20px; }
+  .watchouts li { margin-bottom: 6px; }
+
+  /* Sources */
+  .sources {
+    margin-top: 32px; padding-top: 20px;
+    border-top: 0.5px solid var(--border);
+    font-size: 12px; color: var(--text3);
+  }
+  .sources h3 { font-size: 13px; font-weight: 500; color: var(--text2); margin-bottom: 10px; }
+  .sources a { color: var(--text2); text-decoration: underline; }
+  .sources a:hover { color: var(--text); }
+  .sources li { margin-bottom: 4px; }
+
+  /* Print */
+  @media print {
+    .cat-body { display: block !important; }
+    .chevron { display: none; }
+    .ctrl { display: none; }
+    body { padding: 16px; }
+    .cat { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<h1>Robotics Program Comparison — 2026–27</h1>
+<p class="subtitle">Fresno, CA &nbsp;·&nbsp; Grades 6–8 &nbsp;·&nbsp; Transitioning out of FIRST LEGO League Challenge &nbsp;·&nbsp; Researched May 2026</p>
+
+<div class="prog-hdr">
+  <span class="badge b-fll"><i class="ti ti-alert-triangle"></i> FLL Challenge — final season</span>
+  <span class="badge b-ftc">FTC BIOBUZZ</span>
+  <span class="badge b-iq">VEX IQ</span>
+  <span class="badge b-v5">VEX V5 / V5RC</span>
+  <span class="badge b-wro">WRO RoboMission</span>
+</div>
+
+<div class="legend">
+  <span><span class="ok">✅ confirmed from official source</span></span>
+  <span><span class="est">(est.) = estimated, not officially published</span></span>
+  <span><span class="warn">⚠ watch out / verify</span></span>
+  <span><span class="bad">❌ exclusion or major concern</span></span>
+</div>
+
+<div class="ctrl">
+  <button onclick="toggleAll()" id="toggleBtn">Expand all</button>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     CATEGORY 1: ELIGIBILITY
+════════════════════════════════════════════════════ -->
+<div class="cat" id="c1">
+  <div class="cat-hdr" onclick="tog('c1')">
+    <i class="ti ti-users" style="font-size:18px;color:var(--text2)"></i>
+    <span class="cat-title">Eligibility &amp; age fit</span>
+    <span class="cat-num">1 / 9</span>
+    <i class="ti ti-chevron-down chevron"></i>
+  </div>
+  <div class="cat-body tbl-pad">
+    <table class="pt">
+      <thead><tr>
+        <th class="lbl"></th>
+        <th><span class="badge b-fll">FLL Challenge</span></th>
+        <th><span class="badge b-ftc">FTC</span></th>
+        <th><span class="badge b-iq">VEX IQ</span></th>
+        <th><span class="badge b-v5">VEX V5</span></th>
+        <th><span class="badge b-wro">WRO</span></th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td class="lbl">Official range</td>
+          <td>Ages 9–14 / Grades 4–8 ✅</td>
+          <td>Ages 12–18 / Grades 7–12 ✅</td>
+          <td>Grades 5–8 ✅</td>
+          <td>Grades 6–12 ✅ (separate MS division)</td>
+          <td>Junior: ages 11–15 ✅<span class="nt">Born 2012–2016 for 2027 season</span></td>
+        </tr>
+        <tr>
+          <td class="lbl">6th graders</td>
+          <td class="ok">✅ Yes — all 6th graders qualify</td>
+          <td><span class="bad">❌ No.</span> Age floor is 12. Most 6th graders are 11. This is a firm FIRST rule ✅ — no exceptions.</td>
+          <td class="ok">✅ Yes — Grades 5–8 ✅</td>
+          <td class="ok">✅ Yes — MS division starts at Grade 6 ✅</td>
+          <td class="ok">✅ Yes — ages 11–12 fit Junior ✅</td>
+        </tr>
+        <tr>
+          <td class="lbl">7th graders</td>
+          <td class="ok">✅ Yes</td>
+          <td class="ok">✅ Yes (if age 12+; most 7th graders qualify)</td>
+          <td class="ok">✅ Yes</td>
+          <td class="ok">✅ Yes</td>
+          <td class="ok">✅ Yes</td>
+        </tr>
+        <tr>
+          <td class="lbl">8th graders</td>
+          <td class="ok">✅ Yes</td>
+          <td class="ok">✅ Yes</td>
+          <td class="ok">✅ Yes</td>
+          <td class="ok">✅ Yes</td>
+          <td class="ok">✅ Yes — 14-year-olds may also qualify for WRO Senior division</td>
+        </tr>
+        <tr>
+          <td class="lbl">Mixed Gr 6–8 group</td>
+          <td>All three grades on one team ✅</td>
+          <td><span class="bad">❌ 6th graders excluded.</span> You'd need to bench them, run two programs, or wait until 7th grade.</td>
+          <td>All three grades on one team ✅</td>
+          <td>All three grades in MS division ✅</td>
+          <td>All fit Junior division ✅. An 8th grader turning 15 in the calendar year may fall in Senior — verify annually.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     CATEGORY 2: BUDGET
+════════════════════════════════════════════════════ -->
+<div class="cat" id="c2">
+  <div class="cat-hdr" onclick="tog('c2')">
+    <i class="ti ti-currency-dollar" style="font-size:18px;color:var(--text2)"></i>
+    <span class="cat-title">Budget &amp; costs</span>
+    <span class="cat-num">2 / 9</span>
+    <i class="ti ti-chevron-down chevron"></i>
+  </div>
+  <div class="cat-body tbl-pad">
+    <table class="pt">
+      <thead><tr>
+        <th class="lbl"></th>
+        <th><span class="badge b-fll">FLL Challenge</span></th>
+        <th><span class="badge b-ftc">FTC</span></th>
+        <th><span class="badge b-iq">VEX IQ</span></th>
+        <th><span class="badge b-v5">VEX V5</span></th>
+        <th><span class="badge b-wro">WRO</span></th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td class="lbl">Season registration</td>
+          <td>$285/team ✅</td>
+          <td>$350/team ✅</td>
+          <td>$200/team ✅</td>
+          <td>$200/team ✅</td>
+          <td>~$149 season pass <span class="est">(est., USEL store)</span></td>
+        </tr>
+        <tr>
+          <td class="lbl">Robot hardware</td>
+          <td><span class="ok">✅ Reuse your SPIKE Prime — $0!</span><br>Replacement set ~$360 <span class="est">(est.)</span><br><span class="warn">⚠ LEGO Ed. selling SPIKE Prime only until June 30, 2026 ✅</span></td>
+          <td>~$1,500 starter total ✅<br>(Driver Kit $295 + Control Hub $350 + Build Kit $660)<br><span class="bad">❌ No SPIKE carryover</span></td>
+          <td>IQ Competition Kit ~$499 <span class="est">(est.)</span><br><span class="bad">❌ No SPIKE carryover</span></td>
+          <td>V5 Competition Super Kit ~$900–$1,100 <span class="est">(est.)</span><br><span class="bad">❌ No SPIKE carryover</span></td>
+          <td><span class="ok">✅ Any platform — reuse your SPIKE Prime!</span><br>New field mat ~$100–200 <span class="est">(est.)</span></td>
+        </tr>
+        <tr>
+          <td class="lbl">Annual game set</td>
+          <td>BIOGLOW Challenge Set $105 ✅</td>
+          <td>Game set optional; field elements ~$200–400 <span class="est">(est.)</span></td>
+          <td>Annual Field Element Kit ~$150–200 <span class="est">(est., new each season)</span></td>
+          <td>Annual Field Element Kit ~$200–250 <span class="est">(est.)</span></td>
+          <td>New mat each year ~$100–200 <span class="est">(est., printed locally)</span></td>
+        </tr>
+        <tr>
+          <td class="lbl">Local event fees</td>
+          <td>~$50–150/event <span class="est">(est., set by local partner)</span></td>
+          <td>~$50–150/event <span class="est">(est., set by local partner)</span></td>
+          <td>$5 reg fee/event ✅ + event admission ~$25–75 <span class="est">(est.)</span></td>
+          <td>Same as IQ <span class="est">(est.)</span></td>
+          <td>Qualifier fees ~$50–150; Affiliate Cup / US Open higher <span class="est">(est.)</span></td>
+        </tr>
+        <tr>
+          <td class="lbl">SPIKE carries over?</td>
+          <td class="ok">✅ Yes — same hardware you own</td>
+          <td class="bad">❌ No — completely new platform</td>
+          <td class="bad">❌ No — different system</td>
+          <td class="bad">❌ No — metal + V5 brain</td>
+          <td class="ok">✅ Yes — all robot platforms accepted ✅</td>
+        </tr>
+        <tr>
+          <td class="lbl">Year-1 startup (w/ existing SPIKE)</td>
+          <td><strong>~$390</strong> + events<span class="nt">reg + challenge set; SPIKE reused</span></td>
+          <td><strong>~$1,850–$2,000+</strong> <span class="est">(est.)</span><span class="nt">reg + hardware + optional game set</span></td>
+          <td><strong>~$850–$1,000</strong> <span class="est">(est.)</span><span class="nt">reg + kit + field elements</span></td>
+          <td><strong>~$1,300–$1,600</strong> <span class="est">(est.)</span><span class="nt">reg + kit + field elements</span></td>
+          <td><strong>~$150–$450</strong> <span class="est">(est.)</span><span class="nt">season pass + mat; SPIKE reused</span></td>
+        </tr>
+        <tr>
+          <td class="lbl">Recurring annual (est.)</td>
+          <td>~$390 + events</td>
+          <td>~$350 + events + replacement parts ~$200–400</td>
+          <td>~$350–400 + events</td>
+          <td>~$400–500 + events</td>
+          <td>~$150–300 + event fees</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     CATEGORY 3: ROBOT PLATFORM & CODING
+════════════════════════════════════════════════════ -->
+<div class="cat" id="c3">
+  <div class="cat-hdr" onclick="tog('c3')">
+    <i class="ti ti-robot" style="font-size:18px;color:var(--text2)"></i>
+    <span class="cat-title">Robot platform &amp; coding</span>
+    <span class="cat-num">3 / 9</span>
+    <i class="ti ti-chevron-down chevron"></i>
+  </div>
+  <div class="cat-body tbl-pad">
+    <table class="pt">
+      <thead><tr>
+        <th class="lbl"></th>
+        <th><span class="badge b-fll">FLL Challenge</span></th>
+        <th><span class="badge b-ftc">FTC</span></th>
+        <th><span class="badge b-iq">VEX IQ</span></th>
+        <th><span class="badge b-v5">VEX V5</span></th>
+        <th><span class="badge b-wro">WRO</span></th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td class="lbl">Building system</td>
+          <td>LEGO SPIKE Prime — plastic Technic snap-together ✅</td>
+          <td>Metal structural parts (REV, goBILDA, AndyMark). Requires drilling, tapping, fastening.</td>
+          <td>VEX IQ 2nd gen — plastic snap-together. Different from LEGO but similar philosophy.</td>
+          <td>Aluminum C-channel metal construction. Tools required.</td>
+          <td>Any platform accepted ✅. Keep your LEGO SPIKE Prime build approach.</td>
+        </tr>
+        <tr>
+          <td class="lbl">Programming tools</td>
+          <td>LEGO SPIKE app (Word Blocks or Python) ✅</td>
+          <td>FTC Blocks, OnBot Java, or Android Studio</td>
+          <td>VEXcode IQ (Blocks or Python)</td>
+          <td>VEXcode V5 (Blocks, Python, or C++)</td>
+          <td>Any software — you can keep using LEGO SPIKE app ✅</td>
+        </tr>
+        <tr>
+          <td class="lbl">Primary languages</td>
+          <td>Block coding + Python ✅</td>
+          <td>Java (OnBot Java / Android Studio) — Blocks option available but advanced teams move to Java</td>
+          <td>Block coding + Python</td>
+          <td>Block coding, Python, C++</td>
+          <td>Matches whatever platform the team uses</td>
+        </tr>
+        <tr>
+          <td class="lbl">Robot size limits</td>
+          <td>Free-form within SPIKE Prime hardware limits</td>
+          <td>18" × 18" before match starts ✅</td>
+          <td>15" × 15" before match starts ✅</td>
+          <td>18" × 18" before match starts ✅</td>
+          <td>25 × 25 × 25 cm (~10") before run ✅</td>
+        </tr>
+        <tr>
+          <td class="lbl">Jump from SPIKE + blocks</td>
+          <td class="ok">✅ Zero — exact same hardware and coding environment</td>
+          <td><span class="bad">Very large.</span> New metal hardware, new control system, new coding language (Java). Expect 1–2 years to get comfortable.</td>
+          <td><span class="warn">Moderate.</span> Plastic snap-together is conceptually similar. VEXcode Blocks is close to LEGO Blocks. Most teams adapt in one season.</td>
+          <td><span class="bad">Large.</span> Metal construction + more complex software. C++ eventually expected for competitive teams.</td>
+          <td class="ok">✅ None if keeping SPIKE Prime. Same hardware, same IDE.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     CATEGORY 4: TEAM STRUCTURE
+════════════════════════════════════════════════════ -->
+<div class="cat" id="c4">
+  <div class="cat-hdr" onclick="tog('c4')">
+    <i class="ti ti-friends" style="font-size:18px;color:var(--text2)"></i>
+    <span class="cat-title">Team structure &amp; size</span>
+    <span class="cat-num">4 / 9</span>
+    <i class="ti ti-chevron-down chevron"></i>
+  </div>
+  <div class="cat-body tbl-pad">
+    <table class="pt">
+      <thead><tr>
+        <th class="lbl"></th>
+        <th><span class="badge b-fll">FLL Challenge</span></th>
+        <th><span class="badge b-ftc">FTC</span></th>
+        <th><span class="badge b-iq">VEX IQ</span></th>
+        <th><span class="badge b-v5">VEX V5</span></th>
+        <th><span class="badge b-wro">WRO</span></th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td class="lbl">Students per team</td>
+          <td>Up to 10 students ✅ — your whole group can be one team</td>
+          <td>2–15 students ✅ (FIRST recommends 5–15)</td>
+          <td>Typically 2–5. Multiple teams can share one kit.</td>
+          <td>Typically 2–5 per team</td>
+          <td>Exactly 2–3 students ✅ (confirmed per 2026 rules). Very small teams!</td>
+        </tr>
+        <tr>
+          <td class="lbl">Lead coaches required</td>
+          <td>1 lead coach ✅ (2 recommended)</td>
+          <td>Minimum 2 adult coaches ✅ — required</td>
+          <td>1 coach per team required</td>
+          <td>1 coach per team required</td>
+          <td>1 coach per team ✅ (minimum age 18 at international events)</td>
+        </tr>
+        <tr>
+          <td class="lbl">Background screening</td>
+          <td>FIRST Youth Protection Program ✅</td>
+          <td>FIRST Youth Protection Program ✅ (required for both coaches)</td>
+          <td>RECF background check required ✅</td>
+          <td>RECF background check required ✅</td>
+          <td>Coach signs WRO Ethics Code; local event organizer sets screening requirements <span class="est">(est.)</span></td>
+        </tr>
+        <tr>
+          <td class="lbl">Coach training</td>
+          <td>Free FIRST Training online ✅; paid PD available ($600/seat)</td>
+          <td>Free FIRST Training ✅; paid In-Person Academy $2,500/seat</td>
+          <td>Free RECF online resources ✅</td>
+          <td>Free RECF online resources ✅</td>
+          <td>WRO resources online; USEL support for US teams <span class="est">(est.)</span></td>
+        </tr>
+        <tr>
+          <td class="lbl">Implication for your program</td>
+          <td>One team of up to 10 works well for a class-sized group</td>
+          <td>Can accommodate a large class but <span class="bad">you must have 2 screened coaches before season starts</span></td>
+          <td>You'd likely run 2–3 small teams from the same class, each needing a kit</td>
+          <td>Same — multiple small teams needed for a 6–8 class</td>
+          <td>2–3 students per team means you'd run many teams — more coaching overhead</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     CATEGORY 5: TIME COMMITMENT
+════════════════════════════════════════════════════ -->
+<div class="cat" id="c5">
+  <div class="cat-hdr" onclick="tog('c5')">
+    <i class="ti ti-calendar" style="font-size:18px;color:var(--text2)"></i>
+    <span class="cat-title">Time commitment &amp; season length</span>
+    <span class="cat-num">5 / 9</span>
+    <i class="ti ti-chevron-down chevron"></i>
+  </div>
+  <div class="cat-body tbl-pad">
+    <table class="pt">
+      <thead><tr>
+        <th class="lbl"></th>
+        <th><span class="badge b-fll">FLL Challenge</span></th>
+        <th><span class="badge b-ftc">FTC</span></th>
+        <th><span class="badge b-iq">VEX IQ</span></th>
+        <th><span class="badge b-v5">VEX V5</span></th>
+        <th><span class="badge b-wro">WRO</span></th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td class="lbl">Season window</td>
+          <td>~Aug/Sep 2026 – Apr 2027 ✅</td>
+          <td>Game reveal Sept 12, 2026; events Oct 2026 – Apr 2027 ✅</td>
+          <td>New game ~Aug 2026; events Sep 2026 – Apr 2027 <span class="est">(est.)</span></td>
+          <td>Same as IQ <span class="est">(est.)</span></td>
+          <td>Rules released Jan 15, 2027; qualifiers spring–summer 2027; International Final Dec 2027</td>
+        </tr>
+        <tr>
+          <td class="lbl">Season length</td>
+          <td>~7–8 months</td>
+          <td>~7–8 months</td>
+          <td>~7–8 months</td>
+          <td>~7–8 months</td>
+          <td>~10–11 months (calendar year program)</td>
+        </tr>
+        <tr>
+          <td class="lbl">Weekly time (est.)</td>
+          <td>2–4 hrs/week during season <span class="est">(est.)</span></td>
+          <td>4–8 hrs/week <span class="est">(est.)</span> — ramps up toward competition; robot build is more complex</td>
+          <td>2–4 hrs/week <span class="est">(est.)</span></td>
+          <td>4–6 hrs/week <span class="est">(est.)</span></td>
+          <td>2–4 hrs/week <span class="est">(est.)</span></td>
+        </tr>
+        <tr>
+          <td class="lbl">Events per season</td>
+          <td>1–2 qualifiers + regional/state if advancing</td>
+          <td>2–3 qualifiers + NorCal Regional Championship + FIRST Championship if qualifying</td>
+          <td>2–4 tournaments + state championship + VEX Worlds if qualifying</td>
+          <td>Same as IQ</td>
+          <td>1–2 qualifiers + Affiliate Cup (IL) or US Open (Ontario, CA) if advancing; International Final (Puerto Rico, Dec) if qualifying</td>
+        </tr>
+        <tr>
+          <td class="lbl">Registration opens</td>
+          <td>Mid-June; storefront opens July 2026 ✅</td>
+          <td>Mid-June; storefront opens July 2026 ✅</td>
+          <td>~June–Aug 2026 <span class="est">(est.)</span></td>
+          <td>~June–Aug 2026 <span class="est">(est.)</span></td>
+          <td>January 2026 (current season); 2027 season expected Jan 2027</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     CATEGORY 6: COMPETITION FORMAT
+════════════════════════════════════════════════════ -->
+<div class="cat" id="c6">
+  <div class="cat-hdr" onclick="tog('c6')">
+    <i class="ti ti-tournament" style="font-size:18px;color:var(--text2)"></i>
+    <span class="cat-title">Competition format &amp; advancement</span>
+    <span class="cat-num">6 / 9</span>
+    <i class="ti ti-chevron-down chevron"></i>
+  </div>
+  <div class="cat-body tbl-pad">
+    <table class="pt">
+      <thead><tr>
+        <th class="lbl"></th>
+        <th><span class="badge b-fll">FLL Challenge</span></th>
+        <th><span class="badge b-ftc">FTC</span></th>
+        <th><span class="badge b-iq">VEX IQ</span></th>
+        <th><span class="badge b-v5">VEX V5</span></th>
+        <th><span class="badge b-wro">WRO</span></th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td class="lbl">Match format</td>
+          <td>2.5-min autonomous robot game; one team vs. the field, not head-to-head. Also: Innovation Project judging and Core Values judging.</td>
+          <td>2v2 alliance matches — your robot partners with an alliance robot against two opponents. Qualification rounds + elimination playoffs.</td>
+          <td>Teamwork Challenge (2 robots cooperate together on one field) + Robot Skills (solo timed runs against the clock)</td>
+          <td>2v2 alliance matches (same structure as FTC) + Robot Skills individual runs</td>
+          <td>Fully autonomous solo runs. Each attempt is 2 minutes. Multiple attempts per competition day. Score-based, not head-to-head. ✅</td>
+        </tr>
+        <tr>
+          <td class="lbl">Judged awards at events</td>
+          <td>Yes — Innovation Project, Robot Design, Core Values panels ✅</td>
+          <td>Yes — Engineering Notebook, team interview, many design/community awards ✅</td>
+          <td>Yes — Engineering Notebook, team interview; judging varies by event level ✅</td>
+          <td>Yes — same as IQ ✅</td>
+          <td>Technical Summary (2-page doc, required). Optional Skill Test/team interview. No formal research presentation.</td>
+        </tr>
+        <tr>
+          <td class="lbl">Advancement path</td>
+          <td>Local qualifier → Central CA Championship → FIRST World Championship</td>
+          <td>Local qualifier → NorCal Regional Championship → FIRST World Championship</td>
+          <td>Local tournament → California State/Region Championship → VEX World Championship</td>
+          <td>Local tournament → California Region 1 Championship → VEX World Championship</td>
+          <td>Regional Open Qualifier → USEL Affiliate Cup (Aurora, IL, Aug) or US Open (Ontario, CA) → International Final (Dec)</td>
+        </tr>
+        <tr>
+          <td class="lbl">World-level event</td>
+          <td>FIRST World Championship (Houston or St. Louis) ✅</td>
+          <td>FIRST World Championship ✅</td>
+          <td>VEX World Championship (1,000+ teams) ✅</td>
+          <td>VEX World Championship ✅</td>
+          <td>WRO International Final; 2026 edition in San Juan, Puerto Rico ✅</td>
+        </tr>
+        <tr>
+          <td class="lbl">Accessibility for a newer team</td>
+          <td>High — FLL qualifiers are welcoming; Central CA had only 36 teams at state. Your team won Central CA in 2025–26!</td>
+          <td>Moderate — competitive field; NorCal sends top 24 teams to championship</td>
+          <td>High — VEX Worlds is huge with many qualifying spots; welcoming to newer teams</td>
+          <td>Moderate to competitive — V5RC MS field is smaller but experienced</td>
+          <td>Low — Affiliate Cup sends only 1 team per age group to International Finals. Very limited path to top events.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     CATEGORY 7: NON-ROBOT COMPONENTS
+════════════════════════════════════════════════════ -->
+<div class="cat" id="c7">
+  <div class="cat-hdr" onclick="tog('c7')">
+    <i class="ti ti-book" style="font-size:18px;color:var(--text2)"></i>
+    <span class="cat-title">Non-robot components</span>
+    <span class="cat-num">7 / 9</span>
+    <i class="ti ti-chevron-down chevron"></i>
+  </div>
+  <div class="cat-body tbl-pad">
+    <table class="pt">
+      <thead><tr>
+        <th class="lbl"></th>
+        <th><span class="badge b-fll">FLL Challenge</span></th>
+        <th><span class="badge b-ftc">FTC</span></th>
+        <th><span class="badge b-iq">VEX IQ</span></th>
+        <th><span class="badge b-v5">VEX V5</span></th>
+        <th><span class="badge b-wro">WRO</span></th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td class="lbl">Research project</td>
+          <td class="ok">✅ Required — Innovation Project: students identify a real-world problem, design a solution, and present to judges</td>
+          <td>No formal research project required</td>
+          <td>No formal research project required</td>
+          <td>No formal research project required</td>
+          <td>No research project</td>
+        </tr>
+        <tr>
+          <td class="lbl">Engineering documentation</td>
+          <td>Engineering Notebook ✅ (student-written, presented to judges)</td>
+          <td>Engineering Notebook ✅ — heavily weighted; major award criterion</td>
+          <td>Engineering Notebook ✅ required at most events; judged for awards</td>
+          <td>Engineering Notebook ✅ required</td>
+          <td>Technical Summary ✅ — 2-page doc; primarily for robot specs, not heavily scored</td>
+        </tr>
+        <tr>
+          <td class="lbl">Judged interview</td>
+          <td class="ok">✅ Yes — separate panels for Core Values, Robot Design, and Innovation Project</td>
+          <td class="ok">✅ Yes — structured team interview + pit observation by judges throughout the day</td>
+          <td class="ok">✅ Yes — judge interview at most events; runs concurrently with matches</td>
+          <td class="ok">✅ Yes — same as IQ</td>
+          <td>No formal interview required. Optional skill test/interview may be added by event organizer.</td>
+        </tr>
+        <tr>
+          <td class="lbl">Community outreach</td>
+          <td>Core Values include community impact; demonstrated in judging ✅</td>
+          <td>Outreach and community engagement valued in some award criteria ✅</td>
+          <td>Not formally required; Connect Award recognizes community engagement at Worlds</td>
+          <td>Same as IQ</td>
+          <td>Not required</td>
+        </tr>
+        <tr>
+          <td class="lbl">Team culture / values</td>
+          <td>FIRST Core Values prominently judged — teamwork, inclusion, gracious professionalism ✅</td>
+          <td>FIRST Core Values observed informally; less intensive evaluation than FLL ✅</td>
+          <td>"Student-centered" philosophy; RECF values; engineering design process emphasized</td>
+          <td>Same as IQ</td>
+          <td>WRO Ethics Code signed ✅; learning and fair play emphasis; no formal judged values component</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     CATEGORY 8: LOCAL AVAILABILITY
+════════════════════════════════════════════════════ -->
+<div class="cat" id="c8">
+  <div class="cat-hdr" onclick="tog('c8')">
+    <i class="ti ti-map-pin" style="font-size:18px;color:var(--text2)"></i>
+    <span class="cat-title">Local availability — Fresno, CA</span>
+    <span class="cat-num">8 / 9</span>
+    <i class="ti ti-chevron-down chevron"></i>
+  </div>
+  <div class="cat-body tbl-pad">
+    <table class="pt">
+      <thead><tr>
+        <th class="lbl"></th>
+        <th><span class="badge b-fll">FLL Challenge</span></th>
+        <th><span class="badge b-ftc">FTC</span></th>
+        <th><span class="badge b-iq">VEX IQ</span></th>
+        <th><span class="badge b-v5">VEX V5</span></th>
+        <th><span class="badge b-wro">WRO</span></th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td class="lbl">Local presence</td>
+          <td class="ok"><strong>Excellent.</strong> Central California FLL is very active. Carden School of Fresno (Team 59873) won the 2025–26 Central CA Championship and advanced to Worlds. Multiple qualifiers in the Clovis/Fresno area.</td>
+          <td class="ok"><strong>Good.</strong> A dedicated Fresno FTC Qualifier described as "the only event in the Central Valley." NorCal Regional Championship in Feb/Mar. Active NorCal FTC community via cafirst.org.</td>
+          <td class="ok"><strong>Good.</strong> California has a large, active VEX community. Central Valley teams participate in RECF California Region 1 events. Check RobotEvents.com for Fresno-area VEX IQ tournaments each season.</td>
+          <td><strong>Moderate.</strong> California Region 1 V5RC Championship confirmed active. Fewer MS-division-specific events in Central Valley than IQ. Check RobotEvents.com.</td>
+          <td><span class="warn"><strong>Limited.</strong></span> All known California WRO events are in Ontario, CA (~3 hours from Fresno). No dedicated Central Valley WRO qualifiers found. Smaller US organizer community (USEL).</td>
+        </tr>
+        <tr>
+          <td class="lbl">Nearest qualifier</td>
+          <td>Clovis/Fresno area (within ~15 miles) ✅</td>
+          <td>Fresno FTC Qualifier (in-city event) ✅</td>
+          <td>Central Valley area events; exact locations via RobotEvents.com</td>
+          <td>Central Valley area events; exact locations via RobotEvents.com</td>
+          <td>Ontario, CA (~3 hrs drive) for District Championship / US Open ✅</td>
+        </tr>
+        <tr>
+          <td class="lbl">Regional partner</td>
+          <td>NorCal FLL (norcalfllc.org) + CA Central partner ✅</td>
+          <td>FIRST California / NorCal FTC (cafirst.org) ✅</td>
+          <td>RECF California Region 1 (roboticseducation.org) ✅</td>
+          <td>RECF California Region 1 ✅</td>
+          <td>USEL Youth Robotics (Ontario, CA) ✅</td>
+        </tr>
+        <tr>
+          <td class="lbl">Coach/mentor community</td>
+          <td>Very active Central CA FLL volunteer base; your team already embedded in it</td>
+          <td>Active NorCal FTC coach community; annual kickoff events and workshops</td>
+          <td>Large California VEX IQ coach community; many workshops via RECF</td>
+          <td>Moderate; primarily high school–focused V5RC community in CA</td>
+          <td>Small; concentrated in Southern CA (Ontario area). Limited Fresno-area WRO support network found.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     CATEGORY 9: TRANSITION & LONGEVITY
+════════════════════════════════════════════════════ -->
+<div class="cat" id="c9">
+  <div class="cat-hdr" onclick="tog('c9')">
+    <i class="ti ti-stairs-up" style="font-size:18px;color:var(--text2)"></i>
+    <span class="cat-title">Transition difficulty &amp; longevity</span>
+    <span class="cat-num">9 / 10</span>
+    <i class="ti ti-chevron-down chevron"></i>
+  </div>
+  <div class="cat-body tbl-pad">
+    <table class="pt">
+      <thead><tr>
+        <th class="lbl"></th>
+        <th><span class="badge b-fll">FLL Challenge</span></th>
+        <th><span class="badge b-ftc">FTC</span></th>
+        <th><span class="badge b-iq">VEX IQ</span></th>
+        <th><span class="badge b-v5">VEX V5</span></th>
+        <th><span class="badge b-wro">WRO</span></th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td class="lbl">Transition difficulty</td>
+          <td class="ok">✅ Easiest. Zero hardware or software change. But it is the dead end — same decision waits next year.</td>
+          <td><span class="bad">Hardest.</span> Complete hardware change (metal), new control system, new language (Java), 6th graders excluded. Plan for 1–2 seasons before teams are competitive.</td>
+          <td><span class="warn">Moderate.</span> New hardware (VEX IQ plastic, different connectors). Block coding is conceptually similar — most groups adapt well in one season.</td>
+          <td><span class="bad">Significant.</span> Metal construction + more complex code. Bigger budget. A meaningful step up even from VEX IQ.</td>
+          <td class="ok">Minimal if you keep SPIKE Prime. New competition format and autonomous-only focus to learn, but the tools are familiar.</td>
+        </tr>
+        <tr>
+          <td class="lbl">Long-term viability</td>
+          <td class="bad">❌ FLL ends permanently after 2026–27. Must transition no later than 2027–28. FIRST is developing new K-8 programs but details are unconfirmed.</td>
+          <td class="ok">✅ Established; will exist through high school indefinitely</td>
+          <td class="ok">✅ Stable program with clear multi-year pathway</td>
+          <td class="ok">✅ Well-established high school + college pathway</td>
+          <td><span class="warn">⚠ Smaller US presence.</span> WRO is growing globally but the US organization (USEL) is smaller than FIRST or RECF. Less long-term certainty for US teams.</td>
+        </tr>
+        <tr>
+          <td class="lbl">High school pathway</td>
+          <td>FLL → FTC (direct FIRST pipeline) ✅</td>
+          <td>FTC → FRC (direct FIRST pipeline) — the most recognized HS robotics credential ✅</td>
+          <td>VEX IQ → VEX V5/V5RC (high school) → VEX U (college) ✅</td>
+          <td>VEX V5RC → VEX U (college) ✅</td>
+          <td>No formal US high school WRO ladder. International pathway exists but US community thin.</td>
+        </tr>
+        <tr>
+          <td class="lbl">After 8th grade</td>
+          <td>FLL ends — students age into FTC ✅</td>
+          <td>Students continue in FTC through Grade 12; then optionally FRC ✅</td>
+          <td>Students graduate to VEX V5/V5RC in high school ✅ — another hardware transition</td>
+          <td>Students continue in V5RC through high school ✅ — no further hardware change</td>
+          <td>Students could continue in WRO Junior/Senior. No clear US HS program equivalent.</td>
+        </tr>
+        <tr>
+          <td class="lbl">Current 6th graders' future</td>
+          <td>They do 3 more years of FLL… but it ends after their 8th-grade year. <span class="warn">⚠ They'll never have a long-term home in this program.</span></td>
+          <td>Can't participate until 7th grade. They lose two years of competitive robotics. <span class="warn">⚠ A real gap.</span></td>
+          <td class="ok">Start VEX IQ in 6th grade — 3 solid years before transitioning to V5 in high school. Good pathway. ✅</td>
+          <td class="ok">Start V5RC MS division in 6th grade — 3 years of middle school + continue into high school. Longest single-program runway. ✅</td>
+          <td>Start WRO Junior in 6th grade — 3 years before aging out or moving to Senior. Unclear HS continuation.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     CATEGORY 10: PRACTICE SPACE & FOOTPRINT
+════════════════════════════════════════════════════ -->
+<div class="cat" id="c10">
+  <div class="cat-hdr" onclick="tog('c10')">
+    <i class="ti ti-ruler-measure" style="font-size:18px;color:var(--text2)"></i>
+    <span class="cat-title">Practice space &amp; footprint</span>
+    <span class="cat-num">10 / 10</span>
+    <i class="ti ti-chevron-down chevron"></i>
+  </div>
+  <div class="cat-body tbl-pad">
+    <table class="pt">
+      <thead><tr>
+        <th class="lbl"></th>
+        <th><span class="badge b-fll">FLL Challenge</span></th>
+        <th><span class="badge b-ftc">FTC</span></th>
+        <th><span class="badge b-iq">VEX IQ</span></th>
+        <th><span class="badge b-v5">VEX V5</span></th>
+        <th><span class="badge b-wro">WRO</span></th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td class="lbl">Competition field / table size</td>
+          <td><strong>4 ft × 8 ft</strong> table<br><span style="color:var(--text2);font-size:13px">Mat: 44.75″ × 92.75″</span></td>
+          <td><strong>12 ft × 12 ft</strong> field<br><span style="color:var(--text2);font-size:13px">Inside perimeter walls: 144″ × 144″ (365.75 cm × 365.75 cm). Walls ~13″ tall.</span></td>
+          <td><strong>6 ft × 8 ft</strong> field<br><span style="color:var(--text2);font-size:13px">Perimeter panels enclose the full 6′×8′ playing surface.</span></td>
+          <td><strong>12 ft × 12 ft</strong> field<br><span style="color:var(--text2);font-size:13px">Same footprint as FTC; uses same 24″×24″ foam tile grid (6×6 tiles).</span></td>
+          <td><strong>~7.75 ft × 3.75 ft</strong> table<br><span style="color:var(--text2);font-size:13px">Official mat: 2,362 mm × 1,143 mm (~93″ × 45″). Borders 50 mm tall.</span></td>
+        </tr>
+        <tr>
+          <td class="lbl">Minimum practice footprint</td>
+          <td class="ok">~<strong>8 ft × 12 ft</strong> clear floor space<br><span style="color:var(--text2);font-size:13px">Table + ~2 ft clearance on each side for students to work around it.</span></td>
+          <td class="bad">~<strong>16 ft × 16 ft</strong> clear floor space<br><span style="color:var(--text2);font-size:13px">Field + ~2 ft on each side for drive-team positioning, robot staging, and walking access.</span></td>
+          <td class="ok">~<strong>10 ft × 12 ft</strong> clear floor space<br><span style="color:var(--text2);font-size:13px">Field + ~2 ft clearance on all sides.</span></td>
+          <td class="bad">~<strong>16 ft × 16 ft</strong> clear floor space<br><span style="color:var(--text2);font-size:13px">Same footprint requirement as FTC. Robots are larger — extra clearance is helpful.</span></td>
+          <td class="ok">~<strong>10 ft × 8 ft</strong> clear floor space<br><span style="color:var(--text2);font-size:13px">Table + ~2 ft clearance. Narrower than FLL but similar low overall footprint.</span></td>
+        </tr>
+        <tr>
+          <td class="lbl">What room type works</td>
+          <td class="ok">✅ Standard classroom corner or hallway alcove. One folding table is all you need.</td>
+          <td class="bad">⚠️ Requires gym, cafeteria, or large open room. A standard classroom <em>cannot</em> fit an FTC practice field.</td>
+          <td class="ok">✅ Large classroom or library corner. Most school classrooms can accommodate a 6×8 field if desks are moved.</td>
+          <td class="bad">⚠️ Same as FTC — gym or large open room required. No standard classroom will work.</td>
+          <td class="ok">✅ Standard classroom corner. Same low footprint as FLL; any folding table works.</td>
+        </tr>
+        <tr>
+          <td class="lbl">Practice field ownership</td>
+          <td>Official FLL table ~$250–$350 (AndyMark) or DIY from plywood ~$50. Mat is included in the Challenge Set.</td>
+          <td>Full FTC field perimeter kit ~$600–$800 (AndyMark). Many teams use a <em>half-field</em> setup (~$300–$400) to reduce footprint and cost.</td>
+          <td>VEX IQ field perimeter &amp; tile kit ~$200–$300. Can share one field across two teams.</td>
+          <td>VEX V5 field kit ~$500–$700 (similar to FTC). Field tiles alone ~$200. One field per team recommended.</td>
+          <td>Official WRO mat ~$50–$80. Table is just a standard 8-foot folding table you likely already own.</td>
+        </tr>
+        <tr>
+          <td class="lbl">Field setup / teardown</td>
+          <td class="ok">✅ 5–10 min. Table is always up; just place the mat and missions. Leaves quickly.</td>
+          <td class="warn">⚠ 30–45 min to fully assemble. Teams often leave the field assembled in a dedicated space rather than setting up/tearing down each session.</td>
+          <td class="ok">✅ 10–15 min to assemble/disassemble. Snap-together perimeter panels store flat.</td>
+          <td class="warn">⚠ 20–30 min. Tiles and perimeter panels are heavier than VEX IQ. Dedicated storage space helpful.</td>
+          <td class="ok">✅ 5 min. Roll out the mat on a table you already have. Nothing to assemble.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     RECOMMENDATION
+════════════════════════════════════════════════════ -->
+<div class="rec">
+  <div class="rec-h">
+    <i class="ti ti-bulb" style="font-size:19px;color:var(--text2)"></i>
+    Recommendation — grades 6–8 group in Fresno, transitioning out of FLL
+  </div>
+  <div class="rec-body">
+
+    <div class="rrow">
+      <div class="ric"><i class="ti ti-trophy"></i></div>
+      <div class="rtext">
+        <h4>Top pick: VEX IQ</h4>
+        <p>Best overall fit for your situation. All grades 6–8 compete together on the same team. VEXcode IQ Blocks is the most similar coding experience to LEGO SPIKE Word Blocks — students adapt in roughly one season. The plastic snap-together system is conceptually closer to LEGO than metal FTC parts. An active California VEX IQ scene means events near Fresno. The clear graduation path (VEX IQ → VEX V5 in high school) gives students a coherent multi-year trajectory. The catch: you'll need new hardware (~$850–$1,000 for one team, est.) with no SPIKE carryover, and if you run multiple small teams for a full class, kit costs multiply.</p>
+      </div>
+    </div>
+
+    <div class="rrow">
+      <div class="ric"><i class="ti ti-medal"></i></div>
+      <div class="rtext">
+        <h4>Runner-up: WRO RoboMission</h4>
+        <p>If budget is the binding constraint, WRO is the only program where your existing SPIKE Prime hardware is fully valid. Season pass is ~$149 (est.) and you're up and running. All grades 6–8 fit the Junior division. The tradeoff is a smaller US community, no dedicated Fresno qualifier (nearest events are in Ontario, CA, ~3 hours away), and no formal US high school pathway. It's a viable interim step, but you'd likely face another transition when students hit high school.</p>
+      </div>
+    </div>
+
+    <div class="rrow">
+      <div class="ric"><i class="ti ti-arrows-right"></i></div>
+      <div class="rtext">
+        <h4>Strong contender if you can manage the 6th-grade split: FTC</h4>
+        <p>FTC is the most prestigious transition, has the best long-term high school pathway (FTC → FRC), and Fresno has a dedicated in-city FTC qualifier. But FTC firmly excludes 6th graders. If you're willing to run a separate lower-grade program for 6th graders (or accept a delayed entry), FTC is worth seriously considering for your 7th and 8th graders. The startup cost and technical jump are real, but FTC teams in NorCal are a strong community with experienced mentors.</p>
+      </div>
+    </div>
+
+    <div class="rrow">
+      <div class="ric"><i class="ti ti-clock"></i></div>
+      <div class="rtext">
+        <h4>One more year of FLL: viable but strategically risky</h4>
+        <p>Zero transition effort, SPIKE carries over, and your team just won the Central CA Championship — you'd be competitive again. But FLL ends permanently after 2026–27. Your incoming 6th graders would then have zero years of experience in whatever program comes next. Delaying a year costs incoming students time to build that experience. If you do stay in FLL, use the year to run parallel VEX IQ or FTC training so the switch in 2027–28 is less abrupt.</p>
+      </div>
+    </div>
+
+    <div class="tradeoff">
+      <strong>Biggest single tradeoff:</strong> VEX IQ gives all grades 6–8 a home together and has the smoothest coding transition, but requires ~$850–$1,000 in new hardware per team with no SPIKE carryover. FTC has the best long-term ecosystem (FTC → FRC is the gold standard HS pathway), a local Fresno qualifier, and is the most recognized program in STEM colleges and scholarships — but your 6th graders are locked out and the startup cost and technical jump are the highest of any option.
+    </div>
+
+    <div class="watchouts">
+      <strong>Watch out for:</strong>
+      <ul>
+        <li><strong>FTC's hard age floor:</strong> Most 6th graders turn 12 mid-year at best. Verify individual students' birth dates carefully — many will not qualify even in spring. You may end up with a fractured team.</li>
+        <li><strong>SPIKE Prime sunset:</strong> LEGO Education is selling SPIKE Prime sets only until June 30, 2026. If you need replacement sets for a WRO or FLL season, order immediately. After that date, you'll need the secondary market.</li>
+        <li><strong>VEX IQ → V5 transition:</strong> Your current 6th graders will face another hardware change (plastic IQ → metal V5) when they hit high school. It's a known and manageable step, but budget for it.</li>
+        <li><strong>WRO's thin Fresno network:</strong> Without a local WRO coach community or Fresno-area events, you'll carry more of the coaching and logistics burden alone than in FLL or VEX where local partners and veteran coaches are active.</li>
+        <li><strong>FLL Future Edition:</strong> FIRST launched a new "Future Edition" of FLL for grades 6–8 using new LEGO CS&amp;AI hardware (not SPIKE Prime). It runs for 2026–27 but is also the final FLL season and uses different hardware — not a substitute for the long-term decision you're making.</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     SOURCES
+════════════════════════════════════════════════════ -->
+<div class="sources">
+  <h3>Sources (verified May 2026)</h3>
+  <ul>
+    <li><a href="https://www.firstinspires.org/programs/cost-and-registration" target="_blank">FIRST Cost &amp; Registration 2026–27</a></li>
+    <li><a href="https://community.firstinspires.org/2026-2027-season-pricing-and-registration-updates" target="_blank">2026–27 Season Pricing Updates — FIRST Community</a></li>
+    <li><a href="https://www.firstinspires.org/programs/ftc/game-and-season" target="_blank">FTC BIOBUZZ Game &amp; Season</a></li>
+    <li><a href="https://www.vexrobotics.com/iq/competition/viqc-current-game" target="_blank">VEX IQ Competition — Grades 5–8</a></li>
+    <li><a href="https://kb.roboticseducation.org/hc/en-us/articles/32327333112215-2026-2027-Season-Updates-for-RECF-Robotics-Competition-Programs" target="_blank">RECF 2026–27 Season Updates</a></li>
+    <li><a href="https://kb.roboticseducation.org/hc/en-us/articles/22537101027607-Team-Registration-Structure-US-Only" target="_blank">RECF Team Registration Structure (US)</a></li>
+    <li><a href="https://wro-association.org/wp-content/uploads/WRO-2026-RoboMission-General-Rules.pdf" target="_blank">WRO 2026 RoboMission General Rules (PDF)</a></li>
+    <li><a href="https://www.uselyouthrobotics.com/wro-future-innovators-registration" target="_blank">USEL WRO 2026 Season FAQ &amp; Registration</a></li>
+    <li><a href="https://cafirst.org/first-tech-challenge/" target="_blank">FIRST California / NorCal FTC</a></li>
+    <li><a href="https://www.norcalfllc.org/" target="_blank">NorCal FLL Challenge (norcalfllc.org)</a></li>
+    <li><a href="https://ftc-events.firstinspires.org/2025/region/USCANO" target="_blank">FTC Events — California Northern Region</a></li>
+  </ul>
+</div>
+
+<script>
+function tog(id) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  var isOpen = el.classList.contains('open');
+  el.classList.toggle('open', !isOpen);
+}
+
+var allOpen = false;
+function toggleAll() {
+  allOpen = !allOpen;
+  document.querySelectorAll('.cat').forEach(function(c) {
+    c.classList.toggle('open', allOpen);
+  });
+  document.getElementById('toggleBtn').textContent = allOpen ? 'Collapse all' : 'Expand all';
+}
+</script>
+
+</body>
+</html>
